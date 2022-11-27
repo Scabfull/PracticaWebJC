@@ -355,7 +355,7 @@ function Reloj() {
                           
 function fecha(){
     var fecha=new Date();
-    var dia=fecha.getDay()-1;
+    var dia=fecha.getDate();
     var mes=fecha.getMonth()+1;
     var anho=fecha.getFullYear();
      if(dia < 10) { 
@@ -363,7 +363,7 @@ function fecha(){
     if(mes < 10) { 
         mes="0" + mes; }
     
-document.getElementById("fecha").innerHTML=dia+"/"+mes+"/"+anho;
+document.getElementById("fecha").innerHTML= dia+"/"+mes+"/"+anho;
     
    
 }

@@ -1,7 +1,7 @@
 html { background-color: rgb(84, 156, 204); } 
 
 body{
-	font-family: "Comic Sans MS";
+	font-family: "Serif";
 	font-size: 14px;
 	margin: auto;
     margin: 0 auto;
@@ -49,7 +49,6 @@ body{
 }
 
 .texto {
-    font-family:verdana;
     color:white;
     text-align: center;
     text-shadow: 1px  0px 0px black,
