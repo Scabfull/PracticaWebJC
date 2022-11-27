@@ -1,0 +1,44 @@
+<html lang="es">
+    <head>
+        <title>Calcular precio viaje</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <link rel="stylesheet" type="text/css" href="../css/style.css">
+         <script src="../js/checkOpener.js"></script>
+    </head>
+    <body>
+      <form action="gestordedatos.php" method="POST" onsubmit="validarFormulario();">
+                     <fieldset>
+                            <legend>Cálculo de precio de viaje</legend>
+                            <br/>
+                            <label>Matricula del coche
+                                   <input type="text" id="matricula" name="matricula">
+                            </label>
+                            <br/><br/>
+                            <label>Peaje:
+                                   <select name="peaje" id="peaje">
+                                          <option>Sí</option>
+                                          <option>No</option>
+                                   </select>
+                            </label>                            
+                            <br/><br/>
+                            <label>Kilómetros del viaje:
+                                   <input type="number" name="km" id="km" required>
+                            </label>
+                            <br/><br/>
+                            <label>Consumo de gasolina a los 100km:
+                                   <input type="number" name="consumo" id="consumo" required>
+                            </label>
+                            <br/><br/>
+                             <label>Número de menores que viajan en el vehículo:
+                                   <input type="number" name="menores" id="menores" required>
+                            </label>
+                     </fieldset>
+                     
+                     <!-- <input type="submit" value="Enviar"> -->
+              </form>
+ <button value="enviar" class="botonesEsp" onclick="validarViaje()">Calcular precio</button>
+  <div id="mensajes"></div>
+        <script src="../js/scripts.js"></script>
+    </body>
+</html>
