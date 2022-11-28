@@ -3,15 +3,6 @@
 ----------------------EXPLICACIONES ACCIONES----------------------
 ----------------------------------------------------------------*/
 
-
-
-
-
-/*!
-* Start Bootstrap - Agency v7.0.11 (https://startbootstrap.com/theme/agency)
-* Copyright 2013-2022 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-agency/blob/master/LICENSE)
-*/
 //
 // Scripts
 // 
@@ -528,147 +519,76 @@ function calcularViaje(){
 --------------------VALIDACIONES FORUMLARIOS----------------------
 ----------------------------------------------------------------*/
 
-function validarFormulario() {
+function validar(){
 
-    var textoErrores = "Se han producido los siguientes errores:<br>";
-    var hayErrores = false;
-    var estrellas = 0;
-
-
-    with (document) {
-
-        var matricula=getElementById("matricula").value;
-        var marca=getElementById("marca").selectedIndex;
-        var modelo=getElementById("modelo").value;
-        var fecha=getElementById("fecha").value;
-        var plazas=getElementById("plazas").selectedIndex;
-        var potencia=getElementById("caballos").value;
-        var precio=getElementById("precio").value;
-        var radios = getElementsByName('estrellas');
-
-        for (var i = 0; i < radios.length; i++) {
-            if (radios[i].checked) {            //comprueba cada radio almacenado, si está marcado asigna su value a 'estrellas'
-                estrellas = radios[i].value;     
-            }
-        }
-
-        //creo un objeto con la fecha de expedición
-        var splitFecha = fecha.split("/"); 
-        var objFecha = new Date(splitFecha[2],splitFecha[1]-1,splitFecha[0]);  
-
-        //creo un objeto con la fecha actual
-        var objFechaActual = new Date();
-
-        //creo un objeto con la fecha actual 10 años antes
-        var valorAnoPasado10 = objFechaActual.getFullYear()-10;
-        var objAnoPasado10 = new Date();
-        objAnoPasado10.setFullYear(valorAnoPasado10);
+    var matricula, marca, modelo, fecha, caballos, plazas, estrellas;
     
+    matricula=document.getElementById("matricula").value;
+    marca=document.getElementById("marca").value;
+    modelo=document.getElementById("modelo").value;
+    caballos=document.getElementById("caballos").value;
+    plazas=document.getElementById("plazas").selectedIndex;
+    estrellas=document.getElementsByName("estrellas");
+    
+    var errores="El formulario contiene los siguientes errores: <br>";
 
-        if(matricula===null || marca===null || modelo===null || fecha===null || plazas===null || estrellas===null || caballos===null || precio ===null){
-
-            alert("Error: no se envió la información");
+    
+    if (matricula===null||marca===null||modelo===null||fecha===null||caballos===null||plazas===null){
+        alert("No se envió la información");
+        return false;
+    } else {
+        if (matricula===""||!/^\d{4}\s[A-Z]{3}$/.test(matricula)||/^\s+$/.test(matricula)){
+            alert("Matrícula no válida. El formato tiene que ser 0000 AAA");
             return false;
+        } else if (marca===""||/^\s+$/.test(marca)||/[0-9]/.test(marca)||marca.length<2||marca.length>10) {
+            alert("Marca no válida. La marca sólo puede contener letras y debe tener menos de 10 caracteres.");
+        return false;
+    } else if (modelo===""||/^\s+$/.test(modelo)||modelo.length<2||modelo.length>10){
+            alert("Modelo no válido. El modelo debe tener entre 2 y 10 caracteres.");
+        return false;
 
-        }else{
-
-            if (opener.matriculaRepetida(matricula)){
-                alert("La matrícula " + matricula + " ya está en el garaje");
-            }
-                else{   
-
-                if(!/^[0-9]{4}[A-Z]{3}$/.test(matricula)){
-
-                    textoErrores += "<br>El formato de su matricula no es correcto (Ejemplo: 5524JKV)";
-                    getElementById("matricula").focus();
-                    getElementById("matricula").select();
-                    hayErrores = true;
-                }
-
-                if(marca===0){
-
-                	textoErrores += "<br>Debe seleccionar una marca";
-                    hayErrores = true;
-                }        
-
-                if(modelo.length===0 || /^\s+$/.test(modelo)){
-
-                    textoErrores += "<br>Debe indicar el modelo";
-                    hayErrores = true;
-                }
-
-                if(!fecha.match(/^\d{1,2}\/\d{1,2}\/\d{2,4}$/)) {
-
-                    textoErrores += "<br>El formato de fecha debe ser dd/mm/aaaa";
-                    hayErrores = true;
-                }
-
-                if(objFecha < objAnoPasado10) {
-
-                    textoErrores += "<br>El taller no acepta coches de más de 10 años desde su matriculación";
-                    hayErrores = true;
-                }
-
-                if(plazas===0){
-
-                    textoErrores += "<br>Debe seleccionar las plazas del vehículo";
-                    hayErrores = true;
-                } 
-
-                if(potencia<50){
-
-                	textoErrores += "<br>Debe indicar la potencia del vehículo";
-                    hayErrores = true;
-                } 
-
-                if (estrellas === 0){
-
-                    textoErrores += "<br>Debe seleccionar las estrellas otorgadas";
-                    hayErrores = true;
-                }
-
-                if (isNaN(precio)){
-
-                    textoErrores += "<br>Debe introducir un precio correcto";
-                    hayErrores = true;
-                }
-
-
-
-
-                if (hayErrores){
-
-                    getElementById("errores").innerHTML=textoErrores;
-                    return false;
-                }
-
-                else{
-
-                    getElementById("errores").innerHTML='';
-                    marca = getElementById("marca")[marca].text;    //obtengo el texto que contenga la opción seleccionada
-
-                    try{
-
-                        var nuevoCoche = new Coche();
-                        nuevoCoche.constructorCoche(matricula, marca, modelo, objFecha, plazas, potencia, estrellas, precio);
-
-                        opener.guardaDatosAltaCoche(nuevoCoche);                    
-
-                        this.close();
-
-                    }
-                    catch (ex){
-                        alert(ex);
-                    }
-
-                    //return true
-                    return false;
-                        
-                }
-            }
+    } else if (caballos===""||/^\s+$/.test(caballos)||!/^\d{2,4}$/.test(caballos)) {
+            alert("Caballos no válidos.");
+        return false;
+        } else if (plazas===0){
+            alert("Seleccione un número de plazas.");
+            return false;
+            } else {
+    
+    var E = document.getElementsByName("estrellas");
+    var R = -1;
+    
+        for(var i=0; i < E.length; i++){
+            if(E[i].checked) {
+                  R = i; 
+                 }
         }
-    }
-}
+    
+        if (R===-1){
+                  alert("Seleccione una valoración.");
+                  return false;
+            } else {
+                 alert("Datos correctos. Enviando...");
+                 return true;
+            }
+          
+    
+    
+            }
+            }
+           
+            }
+            
+    /* validaciones:
+     * 
+     * - La matrícula tiene que estar compuesta por 4 números, un espacio y tres letras.
+     * - La marca no puede contener números y tiene que tener entre 2 y 10 letras.
+     * - El modelo tiene que tener entre 2 y 10 caracteres.
+     * - La fecha tiene que tener el formato dd/mm/aaaa.
+     * - Los caballos tienen que ser entre dos y cuatro números.
+     * - Tiene que seleccionarse una opción de plazas.
+     * - Tiene que seleccionarse una opción de estrellas.
+     */
 
 
 
