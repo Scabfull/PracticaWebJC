@@ -590,10 +590,9 @@ progress {
 }
 
 .img-fluid {
-  width: 100%;
-  height: auto;
-  max-height: 200px;
-  min-height: 200px;
+  max-width:100%;
+  width:auto;
+  height:auto;
 }
 
 .img-thumbnail {
@@ -10359,6 +10358,7 @@ p {
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1.125rem;
   font-weight: 700;
+  margin-top: 2.5rem;
 }
 
 .btn-social {
@@ -10439,17 +10439,17 @@ p {
   }
 }
 
-#main .main-item {
-  max-width: 26rem;
-  margin-left: auto;
-  margin-right: auto;
+ .main-item {
+  max-width: 40rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
-#main .main-item .main-link {
+ .main-item .main-link {
   position: relative;
   display: block;
   margin: 0 auto;
 }
-#main .main-item .main-link .main-hover {
+ .main-item .main-link .main-hover {
   display: flex;
   position: absolute;
   width: 100%;
@@ -10460,25 +10460,25 @@ p {
   opacity: 0;
   transition: opacity ease-in-out 0.25s;
 }
-#main .main-item .main-link .main-hover .main-hover-content {
+ .main-item .main-link .main-hover .main-hover-content {
   font-size: 1.25rem;
   color: white;
 }
-#main .main-item .main-link:hover .main-hover {
+ .main-item .main-link:hover .main-hover {
   opacity: 1;
 }
-#main .main-item .main-caption {
+ .main-item .main-caption {
   padding: 1.5rem;
   text-align: center;
   background-color: #fff;
 }
-#main .main-item .main-caption .main-caption-heading {
+ .main-item .main-caption .main-caption-heading {
   font-size: 1.5rem;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 700;
   margin-bottom: 0;
 }
-#main .main-item .main-caption .main-caption-subheading {
+ .main-item .main-caption .main-caption-subheading {
   font-style: italic;
   font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
