@@ -180,40 +180,6 @@ function accion4(){     // abrimos una nueva ventana desde la que solicitamos da
 }
 
 
-function traerObjetoDesdeVentana(){
-
-    var matricula = document.getElementById('matricula').value; 
-
-    var objetoCoche = opener.devolverObjetoCoche(matricula);   // utilizamos OPENER para que la ventana auxiliar pueda hacer uso del Array que está en index. todo lo demás es igual.
-
-    var texto = "";
-
-    if( objetoCoche === false){ 
-
-        texto += "¡Ops! Parece que no existe esa matrícula.";
-    }
-    else{                                               
-
-        texto += "Sí existe ese coche, por lo que puedo transferir a esta ventana auxiliar todos sus datos:";
-
-        texto += "Su modelo es " + objetoCoche.getModelo() + ", y su marca es " + objetoCoche.getMarca();
-
-        texto += "Su coste fué de " + objetoCoche.getPrecio() + "€, y puedo calcular cuánto IVA habría que sumarle para venderlo: " + objetoCoche.getPrecio() * 0.21;
-
-        texto += "Como tiene " + objetoCoche.getPotencia() + " caballos de potencia, así que podría calcular a partir de este dato el consumo de gasolina, por ejemplo.";
-
-    }
-
-    document.getElementById('textoResultado').innerHTML = texto;
-
-}
-
-
-
-
-
-
-
 /*----------------------------------------------------------------
 ----------------------FUNCIONES AUXILIARES-----------------------
 ----------------------------------------------------------------*/
@@ -227,6 +193,7 @@ function guardaDatosAltaCoche(nuevoCoche) {
     garajeVehiculos.push(nuevoCoche);
     document.getElementById("cochesTotales").innerHTML = garajeVehiculos.length;
 }
+
 
 
 function matriculaRepetida(matricula){                      // se le envía como parámetro la matrícula a analizar
@@ -248,7 +215,7 @@ function matriculaRepetida(matricula){                      // se le envía como
 }
 
 
-function listarCoches(){
+    function listarCoches(){
     var listaCoches = "Los coches guardados en el sistema son los siguientes:<br><br>";
 
     if (garajeVehiculos.length === 0){
@@ -264,37 +231,15 @@ function listarCoches(){
             var matriculaActual = cocheActual.getMatricula();
             var marcaActual = cocheActual.getMarca();
             var modeloActual = cocheActual.getModelo();
-            var fechaActual = cocheActual.getFecha();
 
-            var formatoFecha = { year: 'numeric', month: 'short', day: 'numeric' };
-            var fechaCorta = fechaActual.toLocaleString('es-ES', formatoFecha);
+            document.getElementById('lista1').innerHTML = listaCoches += matriculaActual + ": marca " + marcaActual + ", modelo " + modeloActual + "<br><br>";           
 
-            listaCoches += matriculaActual + ": marca " + marcaActual + ", modelo " + modeloActual + " con fecha de matriculación " + fechaCorta + "<br><br>";           
-
-            var ventanaListaCoches = window.open("", 'Listado coches', 'scrollbars=yes,width=600,height=820');           
 
         }
-
-        ventanaListaCoches.document.write(listaCoches);
+        
+        
     }
 }
-
-
-function calcularPVP(){
-
-    var matricula = prompt("Introduzca la matrícula");
-
-    var objetoCoche = devolverObjetoCoche(matricula);
-
-    if( objetoCoche === false){
-        alert("Esa matrícula no se encuentra en el garage");
-    }
-    else{
-        var PVP = Number(objetoCoche.getPrecio()) + Number(objetoCoche.getPrecio()) * 0.21;
-        alert("El precio de venta del coche es " + PVP);
-    }
-}
-
 
 
 function devolverObjetoCoche(matricula){
@@ -321,65 +266,6 @@ function devolverObjetoCoche(matricula){
 
 
 
-
-
-var saldoEstabecido = false;
-var contabilidad;
-
-function establecerSaldo(){
-
-    if (saldoEstabecido){
-        alert("Imposible establecer saldo inicial. Ya se ha establecido un saldo. El saldo actual es de " + contabilidad.getSaldo() + "€");   
-    }
-
-    else{       
-
-        var saldoInicial = prompt("Indique el saldo inicial");
-
-        if (saldoInicial === null){
-
-            alert("Imposible crear asiento contable. No se enviaron los datos.");
-
-        }
-
-        else if (isNaN(saldoInicial) || saldoInicial.length===0 || /^\s+$/.test(saldoInicial)){
-
-            alert("Imposible crear asiento contable. Valor inoperable.");
-
-        }
-
-        else{
-
-            saldoEstabecido = true;
-
-            contabilidad = new Cuenta();
-
-            contabilidad.setSaldo(Number(saldoInicial));
-
-            alert("Se ha creado un asiento incial en la contabilidad de " + contabilidad.getSaldo() + "€");         
-
-
-        }        
-
-    }
-
-}
-
-
-function comprobarSaldo(){
-
-    if(contabilidad === undefined){
-
-        alert("No existe una cuenta contable. Establezca un saldo incial.");
-
-    }
-    else{
-
-        alert(contabilidad.getSaldo());
-
-    }    
-
-}
 
 function Reloj() {
 
@@ -412,6 +298,7 @@ document.getElementById("fecha").innerHTML= dia+"/"+mes+"/"+anho;
     
    
 }
+
 fecha();
 
 function destruirVehiculo(){
@@ -455,66 +342,7 @@ function destruirVehiculo(){
         }
     }
 }
-
-function venderCoche(){
-    var matricula = prompt("Introduce una matrícula");
-
-    var objetoCoche = devolverObjetoCoche(matricula);   
-
-    if( objetoCoche === false){
-        alert("Esa matrícula no se encuentra en el garage");
-    }
-    else{ 
-        var precioVenta=Number(prompt("Introduce el precio de venta"));
-        if (precioVenta === null){
-
-            alert("Ha ocurrido un error. No se enviaron los datos.");
-
-        }
-        else if (isNaN(precioVenta) || precioVenta.length===0 || /^\s+$/.test(precioVenta)){
-
-            alert("Valor incorrecto.");
-            
-        } else {
-        for (var i = 0; i < garajeVehiculos.length; i++) { 
-
-        var cocheActual = garajeVehiculos[i]; 
-
-        var matriculaActual = cocheActual.getMatricula(); 
-
-        if (matricula == matriculaActual){        
-            if (contabilidad===undefined){
-             alert("No existe una cuenta contable. Establezca un saldo incial.");
-            } else {
-            garajeVehiculos.splice(i,1);
-            contabilidad.setIngreso(precioVenta);
-            alert("El vehículo ha sido vendido");
-            alert("El ingreso ha sido aplicado a su cuenta.");
-            document.getElementById("cochesTotales").innerHTML = garajeVehiculos.length;
-        }
-        }
-    }
-        }
-    }
-}
-                   
-
-/*----------------------------------------------------------------
-----------------------VENTANAS AUXILIARES-------------------------
-----------------------------------------------------------------*/
-
-function panelCoche(){
-   var ventanaCoche= window.open("paneles/nuevovehiculo.html", 'Alta nuevo coche', 'scrollbars=yes,width=600,height=820');
-}
-
-
-function calcularSER(){
-    var ventanaSER = window.open('paneles/estacionamiento.html', 'Consulta parking', 'scrollbars=yes,height=520,width=600');
-}
-
-function calcularViaje(){
-    var ventanaViaje=window.open('paneles/viaje.html', 'Calcular precio viaje', 'scrollbars=yes,width=650,height=820');
-}
+           
 /*----------------------------------------------------------------
 --------------------VALIDACIONES FORUMLARIOS----------------------
 ----------------------------------------------------------------*/
@@ -568,7 +396,9 @@ function validar(){
                   alert("Seleccione una valoración.");
                   return false;
             } else {
-                 alert("Datos correctos. Enviando...");
+                guardaDatosAltaCoche(cochenuevo);
+                alert("El coche ha sido guardado");
+                 
                  return true;
             }
           
@@ -644,72 +474,6 @@ function validarFormularioSER() {
         }
     }
 }
-
-
-function validarViaje(){
-    with (document) {
-        var matricula=getElementById("matricula").value;
-        var peaje=getElementById("peaje").selectedIndex;
-        var km=getElementById("km").value;
-        var consumo=getElementById("consumo").value;
-        var menores=getElementById("menores").value;
-        }
-        
-       if(matricula===null || peaje===null || km===null || consumo===null || menores===null){
-
-            alert("Error: no se envió la información");
-            return false;
-        } else {
-            if (opener.devolverObjetoCoche(matricula)===false){
-                alert("La matrícula " + matricula + " no se encuentra en el garaje");
-            } else if (km===""){
-                alert("Introduzca un número válido de kilómetros.");
-            } else if (consumo===""){
-                alert("Introduzca un número válido de consumo");
-            } else if (menores===""){
-                alert("Introduzca un número válido de menores (0 si no viaja ninguno)");
-            }/* else if (menores>plazas || menores==plazas){
-                alert("Debe haber por lo menos un adulto en el vehículo.");
-            } */else {
-            var cocheActual=opener.devolverObjetoCoche(matricula);
-            var plazas=cocheActual.getPlazas();   
-            var precio="El importe total a pagar es de ";
-            var fecha=cocheActual.getFecha();
-            var anho=fecha.getFullYear();
-            var fechaActual=new Date();
-            var anhoPasado6=fechaActual.getFullYear()-6;
-            var resultado=km*consumo;
-            var comida=plazas*6;
-            var total=resultado+comida;
-            
-            if (peaje===0){
-                  if (anho<anhoPasado6){
-                      total=total+16;
-                      precio+=total + "€" + "<br>" + "Se han añadido al precio total 10€ por peaje." + "<br>" + "Se han añadido 6€ al precio total por tener una matrícula de más de 6 años de antigüedad.";
-                  } 
-                else {
-                  total=total+10;
-                  precio+=total + "€" + "<br>" + "Se han añadido al precio total 10€ por peaje."; 
-                    }
-                    
-             
-             } 
-            else {
-                 
-                 precio+=total + "€";
-             }
-             precio+="<br>" + "Se han incluído en el precio total los 6€ de comida por plaza del vehículo.";
-             document.getElementById("mensajes").innerHTML=precio;
-    }
-    
-}
-}
-
-
-
-            
-    
-
 
 /*----------------------------------------------------------------
 ------------------------CONSTRUCTOR COCHES------------------------
