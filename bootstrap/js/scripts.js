@@ -396,9 +396,7 @@ function validar(){
                   alert("Seleccione una valoración.");
                   return false;
             } else {
-                guardaDatosAltaCoche(cochenuevo);
                 alert("El coche ha sido guardado");
-                 
                  return true;
             }
           
@@ -481,25 +479,16 @@ function validarFormularioSER() {
 
 function Coche(){
 
-    var _matricula, _marca, _modelo, _precio, _estrellas, _potencia, _plazas, _fecha;
+    var _matricula, _marca, _modelo, _precio, _estrellas, _potencia, _plazas;
 
-    this.constructorCoche=function(matricula, marca, modelo, objFecha, plazas, potencia, estrellas, precio){
+    this.constructorCoche=function(matricula, marca, modelo, plazas, potencia, estrellas, precio){
         this.setMatricula(matricula);
         this.setMarca(marca);
         this.setModelo(modelo);
-        this.setFecha(objFecha);
         this.setPlazas(plazas);
         this.setPotencia(potencia);
         this.setEstrellas(estrellas);
         this.setPrecio(precio);
-    }
-
-    this.getFecha=function(){
-       return this._fecha;
-    }
-
-    this.setFecha=function(valor){
-       this._fecha=valor;
     }
 
     this.getPlazas=function(){
@@ -557,31 +546,5 @@ function Coche(){
     this.setModelo=function(valor){
        this._modelo=valor;
     }    
-
-}
-
-function Cuenta(){
-
-    var _saldo;
-
-    this.constructorSaldo=function(saldo){
-        this.setSaldo(saldo);
-    }
-
-    this.setSaldo=function(valor){
-       this._saldo=valor;
-    }
-
-    this.setIngreso=function(valor){
-       this._saldo+=valor;
-    }
-
-    this.setGasto=function(valor){
-       this._saldo-=valor;
-    }
-
-    this.getSaldo=function(){
-       return this._saldo;
-    }
 
 }
