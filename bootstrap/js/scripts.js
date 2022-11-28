@@ -279,7 +279,7 @@ function destruirVehiculo() {
                 } else {
                     alert("El vehículo no ha sido retirado");
                 }
-                
+
 
             }
         }
@@ -352,7 +352,7 @@ function validar() {
                     alert("El coche ha sido guardado");
                     return true;
                 }
-                
+
             }
 
 
