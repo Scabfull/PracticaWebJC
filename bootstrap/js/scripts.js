@@ -97,6 +97,96 @@ function ComprobarPrecio() {
     }
 }
 
+
+function sustituir() {
+
+    var matricula, marca, modelo, fecha, caballos, plazas, estrellas;
+
+    matricula = document.getElementById("matricula2").value;
+    marca = document.getElementById("marca2").value;
+    modelo = document.getElementById("modelo2").value;
+    caballos = document.getElementById("caballos2").value;
+    plazas = document.getElementById("plazas2").selectedIndex;
+    radios = document.getElementsByName("estrellas2");
+
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {            //comprueba cada radio almacenado, si está marcado asigna su value a 'estrellas'
+            estrellas = radios[i].value;
+        }
+    }
+
+    var errores = "El formulario contiene los siguientes errores: <br>";
+
+
+    if (matricula === null || marca === null || modelo === null || fecha === null || caballos === null || plazas === null) {
+        alert("No se envió la información");
+        return false;
+    } else {
+        if (matricula === "" || !/^\d{4}\s[A-Z]{3}$/.test(matricula) || /^\s+$/.test(matricula)) {
+            alert("Matrícula no válida. El formato tiene que ser 0000 AAA");
+            return false;
+        } else if (marca === "" || /^\s+$/.test(marca) || /[0-9]/.test(marca) || marca.length < 2 || marca.length > 10) {
+            alert("Marca no válida. La marca sólo puede contener letras y debe tener menos de 10 caracteres.");
+            return false;
+        } else if (modelo === "" || /^\s+$/.test(modelo) || modelo.length < 2 || modelo.length > 10) {
+            alert("Modelo no válido. El modelo debe tener entre 2 y 10 caracteres.");
+            return false;
+
+        } else if (caballos === "" || /^\s+$/.test(caballos) || !/^\d{2,4}$/.test(caballos)) {
+            alert("Caballos no válidos.");
+            return false;
+        } else if (plazas === 0) {
+            alert("Seleccione un número de plazas.");
+            return false;
+        } else {
+
+            var E = document.getElementsByName("estrellas2");
+            var R = -1;
+
+            for (var i = 0; i < E.length; i++) {
+                if (E[i].checked) {
+                    R = i;
+                }
+            }
+
+            if (R === -1) {
+                alert("Seleccione una valoración.");
+                return false;
+            } else {
+
+                var repetida = matriculaRepetida(matricula);
+                if (repetida == true) {
+                    for (var i = 0; i < garajeVehiculos.length; i++) {
+
+                        var cocheActual = garajeVehiculos[i];
+    
+                        var matriculaActual = cocheActual.getMatricula();
+    
+                        if (matricula == matriculaActual) {
+                            var confirmar = confirm("¿Seguro que quieres modificar el vehículo?");
+                            if (confirmar == true) {
+                                coche1 = new Coche();
+                                coche1.constructorCoche(matricula, marca, modelo, plazas, caballos, estrellas);
+                                garajeVehiculos[i] = coche1;
+                                alert("El vehículo ha sido modificado");
+                                return true;
+                            } else {
+                                alert("El vehículo no ha sido modificado");
+                                return false;
+                            }
+                        }
+                    }
+                }
+                else{
+                    alert("Este coche no esta en nuestro sistema");
+                    return false;
+                }
+            }
+        }
+    }
+
+}
+/*
 function modificarCoche(){
     var matricula = prompt("Introduce una matrícula:");
 
@@ -120,7 +210,7 @@ count++;
         
     }
 }
-
+*/
 
 function matriculaRepetida(matricula) {                      // se le envía como parámetro la matrícula a analizar
 
@@ -277,7 +367,13 @@ function validar() {
     modelo = document.getElementById("modelo").value;
     caballos = document.getElementById("caballos").value;
     plazas = document.getElementById("plazas").selectedIndex;
-    estrellas = document.getElementsByName("estrellas");
+    radios = document.getElementsByName("estrellas");
+
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {            //comprueba cada radio almacenado, si está marcado asigna su value a 'estrellas'
+            estrellas = radios[i].value;
+        }
+    }
 
     var errores = "El formulario contiene los siguientes errores: <br>";
 
@@ -323,10 +419,10 @@ function validar() {
                     return false;
                 } else {
                     coche1 = new Coche();
-                    coche1.constructorCoche(matricula, marca, modelo, estrellas, caballos, plazas);
+                    coche1.constructorCoche(matricula, marca, modelo, plazas, caballos, estrellas);
                     garajeVehiculos.push(coche1);
                     document.getElementById("cochesTotales").innerHTML = garajeVehiculos.length;
-                    alert("El coche ha sido guardado");
+                    alert("El vehículo ha sido guardado");
                     return true;
                 }
 
