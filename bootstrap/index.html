@@ -56,21 +56,21 @@
                                 alt="..." />
                         </a>
                         <div class="main-caption">
-                            <div class="main-caption-heading">Registrar coche nuevo</div>
+                            <div class="main-caption-heading">Registrar vehículo nuevo</div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 mb-12">
                     <!-- main item 2-->
                     <div class="main-item">
-                        <a class="main-link" data-bs-toggle="modal" href="#mainModal2">
+                        <a class="main-link" data-bs-toggle="modal" data-target="#mainModal2">
                             <div class="main-hover">
                                 <div class="main-hover-content"></div>
                             </div>
                             <img class="img-fluid" src="assets/img/modificar.jpg" alt="..." />
                         </a>
                         <div class="main-caption">
-                            <div class="main-caption-heading">Modificar coche</div>
+                            <div class="main-caption-heading">Modificar vehículo</div>
                         </div>
                     </div>
                 </div>
@@ -84,14 +84,14 @@
                             <img class="img-fluid" src="assets/img/comprar-coche-nuevo.jpg" alt="..." />
                         </a>
                         <div class="main-caption">
-                            <div class="main-caption-heading">Retirar coche</div>
+                            <div class="main-caption-heading">Retirar vehículo</div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 mb-12">
                     <!-- main item 4-->
                     <div class="main-item">
-                        <a class="main-link" data-bs-toggle="modal">
+                        <a class="main-link" data-bs-toggle="modal" onclick="ComprobarPrecio()">
                             <div class="main-hover">
                                 <div class="main-hover-content"></div>
                             </div>
@@ -112,7 +112,7 @@
                             <img class="img-fluid" src="assets/img/lista.jpeg" alt="..." />
                         </a>
                         <div class="main-caption">
-                            <div class="main-caption-heading">Listar coches</div>
+                            <div class="main-caption-heading">Listado de vehículos</div>
                         </div>
                     </div>
                 </div>
@@ -120,130 +120,164 @@
         </div>
     </section>
     <!-- main Modals-->
-    <!-- main item 1 modal popup-->
-    <div class="main-modal modal fade" id="mainModal1" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg"
-                        alt="Close modal" /></div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <div class="modal-body">
-                                <form id="formulario" class="formulario">
-                                    <fieldset>
-                                        <legend>Datos del coche:</legend>
-
-                                        <label>Matrícula:
-                                            <input type="text" id="matricula">
-                                        </label>
-                                        <br>
-                                        <br>
-                                        <label>Marca:
-                                            <input type="text" id="marca">
-                                        </label>
-                                        <br>
-                                        <br>
-                                        <label>Modelo:
-                                            <input type="text" id="modelo">
-                                        </label>
-
-                                        <br>
-                                        <br>
-                                        <label>Caballos de potencia:
-                                            <input type="text" id="caballos">
-                                        </label>
-                                        <br>
-                                        <br>
-                                        <label>Plazas:
-                                            <select id="plazas">
-                                                <option value="blank"> SELECCIONAR </option>
-                                                <option value="option1"> 1 </option>
-                                                <option value="option2"> 2 </option>
-                                                <option value="option3"> 3 </option>
+        <!-- main item 1 modal popup-->
+        <div class="main-modal modal fade" id="mainModal1" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <form id="formulario">
+                                        <fieldset>
+                                            <legend>Datos del coche:</legend>
+                            
+                                            <label>Matrícula: 
+                                                <input type="text" id="matricula">
+                                            </label>
+                                            <br>
+                                                            <br>
+                                            <label>Marca: 
+                                                <input type="text" id="marca">
+                                            </label>
+                                            <br>
+                                                            <br>
+                                            <label>Modelo: 
+                                                <input type="text" id="modelo">
+                                            </label>
+                                        
+                                            <br>
+                                                            <br>
+                                             <label>Caballos de potencia:
+                                                <input type="text" id="caballos">
+                                             </label>
+                                            <br>
+                                                            <br>
+                                            <label>Plazas: 
+                                                <select id="plazas">
+                                            <option value="blank"> SELECCIONAR </option>
+                                            <option value="option1"> 1 </option>
+                                            <option value="option2"> 2 </option>
+                                            <option value="option3"> 3 </option>
                                                 <option value="option4"> 4 </option>
                                                 <option value="option5"> 5 </option>
                                                 <option value="option6"> 6 </option>
                                                 <option value="option7"> 7+ </option>
-                                            </select>
-                                        </label>
-                                        <br>
-                                        <br>
-                                        <h4>Estrellas EURO NCAP: </h4>
-                                        <label><input type="radio" name="estrellas" value="1">1★</label>
-                                        <label><input type="radio" name="estrellas" value="2">2★</label>
-                                        <label><input type="radio" name="estrellas" value="3">3★</label>
-                                        <label><input type="radio" name="estrellas" value="4">4★</label>
-                                        <label><input type="radio" name="estrellas" value="5">5★</label>
-                                    </fieldset>
-                                    <div id="errores"></div>
-
-
-
-                                </form>
-                                <button class="btn btn-primary btn-xl text-uppercase" onclick="return validar()">
-                                    Registrar coche
-                                </button>
-                                <script type="text/javascript" src="js/scripts.js"></script>
-
-
-
-
+                                        </select>
+                                            </label>
+                                                            <br>
+                                                            <br>
+                                                            <h4>Estrellas EURO NCAP: </h4>
+                                            <label><input type="radio" name="estrellas" value="1">1★</label>
+                                            <label><input type="radio" name="estrellas" value="2">2★</label>
+                                            <label><input type="radio" name="estrellas" value="3">3★</label>
+                                                            <label><input type="radio" name="estrellas" value="4">4★</label>
+                                                            <label><input type="radio" name="estrellas" value="5">5★</label>
+                                        </fieldset>
+                                                     <div id="errores"></div>
+                                        
+                                                     
+                                        
+                                    </form>
+                                    <button class="btn btn-primary btn-xl text-uppercase" onclick ="return validar()">
+                                        Registrar coche
+                                    </button>
+                                    <script type="text/javascript" src="js/scripts.js"></script>
+                                    
+                            
+                            
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- main item 2 modal popup-->
-    <div class="main-modal modal fade" id="mainModal2" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg"
-                        alt="Close modal" /></div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <div class="modal-body">
-                                <!-- Project details-->
-                                <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                    type="button">
-                                    Close Project
-                                </button>
+        <!-- main item 2 modal popup-->
+        <div class="main-modal modal fade" id="mainModal2" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        Close Project
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- main item 5 modal popup-->
-    <div class="main-modal modal fade" id="mainModal5" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg"
-                        alt="Close modal" /></div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <div class="modal-body" id="lista1">
+        <!-- main item 3 modal popup-->
+        <div class="main-modal modal fade" id="mainModal3" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        Close Project
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!-- * *                               SB Forms JS                               * *-->
-    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-</body>
-
+        <!-- main item 4 modal popup-->
+       <!-- <div class="main-modal modal fade" id="mainModal4" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        Close Project
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- main item 5 modal popup-->
+        <div class="main-modal modal fade" id="mainModal5" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body" id="lista1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
 </html>

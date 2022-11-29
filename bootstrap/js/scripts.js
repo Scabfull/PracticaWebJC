@@ -54,81 +54,6 @@ window.addEventListener('DOMContentLoaded', event => {
 });
 
 
-// 1.- Comprobar si existe matrícula en index
-
-// si sólo queremos comprobar si existe una matrícula en el sistema
-
-
-
-function accion1() {
-
-    var matricula = prompt("Introduce una matrícula");  //se solicita al usuario una matrícula, sin crear una nueva ventana
-
-    var estaRepetida = matriculaRepetida(matricula);    //la función matriculaRepetida, pasándole una matrícula como parámetro, devolverá TRUE si está repetida. Ver en FUNCIONES AUXILIARES.
-
-    if (estaRepetida) {      //también podría evaluarse directamente sin la asignación previa, asi:  if ( matriculaRepetida(matricula) ){ ...
-
-        alert("La matrícula " + matricula + " ya existe");
-    }
-    else {
-
-        alert("La matrícula " + matricula + " no existe");
-    }
-}
-
-
-// 3.- Buscar instancia de coche por marícula en index
-
-// si no sólo queremos comprobar si existe la matrícula, sino que además queremos hacer uso de cualquier dato (precio, modelo...) de una instancia ya guardada a patrir de su matrícula, necesitamos que la aplicación nos devuelva la propia instancia para poder aplicarle cualquiera de los métodos que hayamos creado
-
-
-
-function accion3() {
-
-    var matricula = prompt("Introduce una matrícula");
-
-    var objetoCoche = devolverObjetoCoche(matricula);   // la función devolverObjetoCoche, pasándole una matrícula como parámetro, devolverá FALSE si no existe una instancia con esa matrícula, o la propia instancia de objeto si existe. Ver en FUNCIONES AUXILIARES.
-
-    if (objetoCoche === false) {                         // si "objetoCoche" es FALSE, es porque no existe.
-
-        alert("Esa matrícula no se encuentra en el garage");
-    }
-    else {                                               // en cualquier otro caso, "objetoCoche" tendrá asignada la propia instancia, sobre la que podemos aplicar cualquiera de nuestros métodos:
-
-        alert("Sí existe ese coche, por lo que puedo darte todos sus datos:");
-
-        alert("Su modelo es " + objetoCoche.getModelo() + ", y su marca es " + objetoCoche.getMarca());
-
-        alert("Su coste fué de " + objetoCoche.getPrecio() + "€, y puedo calcular cuánto IVA habría que sumarle para venderlo: " + objetoCoche.getPrecio() * 0.21);
-
-        alert("Como tiene " + objetoCoche.getPotencia() + " caballos de potencia, así que podría calcular a partir de este dato el consumo de gasolina, por ejemplo.");
-
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-// 4.- Buscar instancia de coche por marícula en ventana auxiliar
-
-// igual que el anterior, pero desde una ventana auxiliar
-
-
-
-function accion4() {     // abrimos una nueva ventana desde la que solicitamos datos. Por tanto, necesitaremos OPENER para acceder al Array que está en index
-
-    var ventanaObjeto = window.open('paneles/ventanaobjeto.html', 'Consulta parking', 'scrollbars=yes,height=520,width=600');
-}
-
-
 /*----------------------------------------------------------------
 ----------------------FUNCIONES AUXILIARES-----------------------
 ----------------------------------------------------------------*/
@@ -143,6 +68,58 @@ function guardaDatosAltaCoche(nuevoCoche) {
     document.getElementById("cochesTotales").innerHTML = garajeVehiculos.length;
 }
 
+function ComprobarPrecio() {
+    var matricula = prompt("Introduce una matrícula:");
+    var objetoCoche = devolverObjetoCoche(matricula);
+    if (objetoCoche === false) {
+        alert("Esa matrícula no se encuentra en el garage");
+    } else {
+            var horas = prompt("Introduce el número de minutos que has estacionado:");
+            if (!/^\d{0,3}$/.test(horas) || /^\s+$/.test(horas) || horas == null || horas === "") {
+                alert("El numero de minutos no es correcto.");
+            } else {
+                if (horas >= 0 && horas <= 30){
+                    var precio = 0.0425 * horas;
+                    alert ("El precio a pagar es de " + precio.toFixed(2) + "€");
+                } else if (horas > 30 && horas <=90){
+                    var precio = 0.0382 * horas;
+                    alert ("El precio a pagar es de " + precio.toFixed(2) + "€");
+                } else if (horas > 90 && horas <= 660){
+                    var precio = 0.0508 * horas;
+                    alert ("El precio a pagar es de " + precio.toFixed(2) + "€");
+                } else {
+                    var precio = 32.50;
+                    alert ("El precio a pagar es de " + precio.toFixed(2) + "€");
+                }
+            }
+
+
+    }
+}
+
+function modificarCoche(){
+    var matricula = prompt("Introduce una matrícula:");
+
+    var objetoCoche = devolverObjetoCoche(matricula);   
+
+    if (objetoCoche === false) {                    
+
+        alert("Esa matrícula no se encuentra en el garage");
+    }
+    else {
+        var count = 0;
+$('#mainModal2').on('show.bs.modal', function(){
+count++;		
+        //Uso el método .empty() para eliminar todo el contenido dentro de .modal-body
+		$('#mainModal2 .modal-body').empty();
+    $('#mainModal2 .modal-body').append("El contenido es dinámico, esta es la vez número "+count+" que abriste el modal!");
+
+})
+       // alert("Su modelo es " + objetoCoche.getModelo() + ", y su marca es " + objetoCoche.getMarca());
+       //href="#mainModal2" 
+        
+    }
+}
 
 
 function matriculaRepetida(matricula) {                      // se le envía como parámetro la matrícula a analizar
