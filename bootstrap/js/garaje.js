@@ -1,1 +1,0 @@
-var garajeVehiculos = new Array();
