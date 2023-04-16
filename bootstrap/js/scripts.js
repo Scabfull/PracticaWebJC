@@ -554,3 +554,9 @@ function Conductor() {
     }
 
 }
+
+$(document).ready(function () {
+    $('#example').dataTable( {
+        "lengthChange": false
+      } );
+});
