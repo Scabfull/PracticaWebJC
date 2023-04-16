@@ -204,6 +204,7 @@ function matriculaRepetida(matricula) {                      // se le envía com
 function listarCoches() {
     var listaCoches = new Array();
     var coche = new Array();
+    var id;
 
     if (garajeVehiculos.length === 0) {
 
@@ -219,8 +220,9 @@ function listarCoches() {
             var marcaActual = cocheActual.getMarca();
             var modeloActual = cocheActual.getModelo();
             var conductorActual = cocheActual.getConductor().getNombre();
+            id= i+1;
 
-            coche = [matriculaActual, marcaActual, modeloActual, conductorActual];
+            coche = [id, matriculaActual, marcaActual, modeloActual, conductorActual];
             listaCoches.push(coche);
         }
         return listaCoches;
@@ -558,9 +560,10 @@ $(document).ready(function () {
     $('#example').DataTable({
         data: listarCoches(),
         columns: [
+            { title: 'Id' },
             { title: 'Matricula' },
-            { title: 'Modelo' },
             { title: 'Marca' },
+            { title: 'Modelo' },
             { title: 'Nombre.' },
         ],
         "lengthChange": false,
