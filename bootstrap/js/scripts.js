@@ -202,10 +202,11 @@ function matriculaRepetida(matricula) {                      // se le envía com
 
 
 function listarCoches() {
-    var listaCoches = "Los coches guardados en el sistema son los siguientes:<br><br>";
+    var listaCoches = new Array();
+    var coche = new Array();
 
     if (garajeVehiculos.length === 0) {
-        alert("No hay coches en el garaje");
+
     }
 
     else {
@@ -219,15 +220,13 @@ function listarCoches() {
             var modeloActual = cocheActual.getModelo();
             var conductorActual = cocheActual.getConductor().getNombre();
 
-            document.getElementById('lista1').innerHTML = listaCoches += matriculaActual + ": Marca: " + marcaActual + " | Modelo: " + modeloActual + " | Conductor: " + conductorActual;
-
-
+            coche = [matriculaActual, marcaActual, modeloActual, conductorActual];
+            listaCoches.push(coche);
         }
-
+        return listaCoches;
 
     }
 }
-
 
 function devolverObjetoCoche(matricula) {
 
@@ -556,7 +555,17 @@ function Conductor() {
 }
 
 $(document).ready(function () {
-    $('#example').dataTable( {
-        "lengthChange": false
-      } );
+    $('#example').DataTable({
+        data: listarCoches(),
+        columns: [
+            { title: 'Matricula' },
+            { title: 'Modelo' },
+            { title: 'Marca' },
+            { title: 'Nombre.' },
+        ],
+        "lengthChange": false,
+        "language": {
+            "emptyTable": "No hay coches registrados en el garaje."
+        }
+    });
 });
