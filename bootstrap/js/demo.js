@@ -29,5 +29,4 @@ function cargarContenidoDemostrativo(){
     
     garajeVehiculos.push(coche1,coche2,coche3,coche4,coche5);
     document.getElementById("cochesTotales").innerHTML = garajeVehiculos.length;
-    alert("El contenido de DEMO ha sido cargado");
 }

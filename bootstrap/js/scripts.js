@@ -29,15 +29,6 @@ window.addEventListener('DOMContentLoaded', event => {
     // Shrink the navbar when page is scrolled
     document.addEventListener('scroll', navbarShrink);
 
-    // Activate Bootstrap scrollspy on the main nav element
-    const mainNav = document.body.querySelector('#mainNav');
-    if (mainNav) {
-        new bootstrap.ScrollSpy(document.body, {
-            target: '#mainNav',
-            offset: 74,
-        });
-    };
-
     // Collapse responsive navbar when toggler is visible
     const navbarToggler = document.body.querySelector('.navbar-toggler');
     const responsiveNavItems = [].slice.call(
@@ -57,131 +48,8 @@ window.addEventListener('DOMContentLoaded', event => {
 /*----------------------------------------------------------------
 ----------------------FUNCIONES AUXILIARES-----------------------
 ----------------------------------------------------------------*/
+var garajeVehiculos = new Array();
 
-function muestraValorRange(val) {
-    document.getElementById('valorRange').innerHTML = val;
-}
-
-
-function guardaDatosAltaCoche(nuevoCoche) {
-    garajeVehiculos.push(nuevoCoche);
-    document.getElementById("cochesTotales").innerHTML = garajeVehiculos.length;
-}
-
-
-function sustituir() {
-
-    var matricula, marca, modelo, fecha, caballos, plazas, estrellas;
-
-    matricula = document.getElementById("matricula2").value;
-    marca = document.getElementById("marca2").value;
-    modelo = document.getElementById("modelo2").value;
-    caballos = document.getElementById("caballos2").value;
-    plazas = document.getElementById("plazas2").selectedIndex;
-    radios = document.getElementsByName("estrellas2");
-
-    for (var i = 0; i < radios.length; i++) {
-        if (radios[i].checked) {            //comprueba cada radio almacenado, si está marcado asigna su value a 'estrellas'
-            estrellas = radios[i].value;
-        }
-    }
-
-    var errores = "El formulario contiene los siguientes errores: <br>";
-
-
-    if (matricula === null || marca === null || modelo === null || fecha === null || caballos === null || plazas === null) {
-        alert("No se envió la información");
-        return false;
-    } else {
-        if (matricula === "" || !/^\d{4}\s[A-Z]{3}$/.test(matricula) || /^\s+$/.test(matricula)) {
-            alert("Matrícula no válida. El formato tiene que ser 0000 AAA");
-            return false;
-        } else if (marca === "" || /^\s+$/.test(marca) || /[0-9]/.test(marca) || marca.length < 2 || marca.length > 10) {
-            alert("Marca no válida. La marca sólo puede contener letras y debe tener menos de 10 caracteres.");
-            return false;
-        } else if (modelo === "" || /^\s+$/.test(modelo) || modelo.length < 2 || modelo.length > 10) {
-            alert("Modelo no válido. El modelo debe tener entre 2 y 10 caracteres.");
-            return false;
-
-        } else if (caballos === "" || /^\s+$/.test(caballos) || !/^\d{2,4}$/.test(caballos)) {
-            alert("Caballos no válidos.");
-            return false;
-        } else if (plazas === 0) {
-            alert("Seleccione un número de plazas.");
-            return false;
-        } else {
-
-            var E = document.getElementsByName("estrellas2");
-            var R = -1;
-
-            for (var i = 0; i < E.length; i++) {
-                if (E[i].checked) {
-                    R = i;
-                }
-            }
-
-            if (R === -1) {
-                alert("Seleccione una valoración.");
-                return false;
-            } else {
-
-                var repetida = matriculaRepetida(matricula);
-                if (repetida == true) {
-                    for (var i = 0; i < garajeVehiculos.length; i++) {
-
-                        var cocheActual = garajeVehiculos[i];
-    
-                        var matriculaActual = cocheActual.getMatricula();
-    
-                        if (matricula == matriculaActual) {
-                            var confirmar = confirm("¿Seguro que quieres modificar el vehículo?");
-                            if (confirmar == true) {
-                                coche1 = new Coche();
-                                coche1.constructorCoche(matricula, marca, modelo, plazas, caballos, estrellas);
-                                garajeVehiculos[i] = coche1;
-                                alert("El vehículo ha sido modificado");
-                                return true;
-                            } else {
-                                alert("El vehículo no ha sido modificado");
-                                return false;
-                            }
-                        }
-                    }
-                }
-                else{
-                    alert("Este coche no esta en nuestro sistema");
-                    return false;
-                }
-            }
-        }
-    }
-
-}
-/*
-function modificarCoche(){
-    var matricula = prompt("Introduce una matrícula:");
-
-    var objetoCoche = devolverObjetoCoche(matricula);   
-
-    if (objetoCoche === false) {                    
-
-        alert("Esa matrícula no se encuentra en el garage");
-    }
-    else {
-        var count = 0;
-$('#mainModal2').on('show.bs.modal', function(){
-count++;		
-        //Uso el método .empty() para eliminar todo el contenido dentro de .modal-body
-		$('#mainModal2 .modal-body').empty();
-    $('#mainModal2 .modal-body').append("El contenido es dinámico, esta es la vez número "+count+" que abriste el modal!");
-
-})
-       // alert("Su modelo es " + objetoCoche.getModelo() + ", y su marca es " + objetoCoche.getMarca());
-       //href="#mainModal2" 
-        
-    }
-}
-*/
 
 function matriculaRepetida(matricula) {                      // se le envía como parámetro la matrícula a analizar
 
@@ -206,53 +74,23 @@ function listarCoches() {
     var coche = new Array();
     var id;
 
-    if (garajeVehiculos.length === 0) {
-
-    }
-
-    else {
-
-        for (var i = 0; i < garajeVehiculos.length; i++) {
-
-            var cocheActual = garajeVehiculos[i];
-
-            var matriculaActual = cocheActual.getMatricula();
-            var marcaActual = cocheActual.getMarca();
-            var modeloActual = cocheActual.getModelo();
-            var conductorActual = cocheActual.getConductor().getNombre();
-            id= i+1;
-
-            coche = [id, matriculaActual, marcaActual, modeloActual, conductorActual];
-            listaCoches.push(coche);
-        }
-        return listaCoches;
-
-    }
-}
-
-function devolverObjetoCoche(matricula) {
-
     for (var i = 0; i < garajeVehiculos.length; i++) {
 
         var cocheActual = garajeVehiculos[i];
 
         var matriculaActual = cocheActual.getMatricula();
+        var marcaActual = cocheActual.getMarca();
+        var modeloActual = cocheActual.getModelo();
+        var conductorActual = cocheActual.getConductor().getNombre();
+        id = i + 1;
 
-        var existeCoche = false;
-
-        if (matricula == matriculaActual) {
-
-            return cocheActual;
-            existeCoche = true;
-        }
+        coche = [id, matriculaActual, marcaActual, modeloActual, conductorActual];
+        listaCoches.push(coche);
     }
+    return listaCoches;
 
-    if (!existeCoche) {
-        return false;
-    }
+
 }
-
-
 
 
 function Reloj() {
@@ -270,7 +108,7 @@ function Reloj() {
 
 }
 
-setInterval(Reloj, 1000);
+setInterval(Reloj, 500);
 
 function fecha() {
     var fecha = new Date();
@@ -289,187 +127,9 @@ function fecha() {
 
 }
 
-fecha();
-
-function destruirVehiculo() {
-    var matricula = prompt("Introduce una matrícula");
-
-    var objetoCoche = devolverObjetoCoche(matricula);
-
-    if (objetoCoche === false) {
-        alert("Esa matrícula no se encuentra en el garage");
-    }
-    else {
-
-        for (var i = 0; i < garajeVehiculos.length; i++) {
-
-            var cocheActual = garajeVehiculos[i];
-
-            var matriculaActual = cocheActual.getMatricula();
-
-            if (matricula == matriculaActual) {
-                var confirmar = confirm("¿Seguro que quieres retirar el vehículo?");
-                if (confirmar == true) {
-                    garajeVehiculos.splice(i, 1);
-                    alert("El vehículo ha sido retirado");
-                    document.getElementById("cochesTotales").innerHTML = garajeVehiculos.length;
-                } else {
-                    alert("El vehículo no ha sido retirado");
-                }
+setInterval(fecha, 500);
 
 
-            }
-        }
-    }
-}
-
-
-/*----------------------------------------------------------------
---------------------VALIDACIONES FORUMLARIOS----------------------
-----------------------------------------------------------------*/
-
-function validar() {
-
-    var matricula, marca, modelo, fecha, caballos, plazas, estrellas;
-
-    matricula = document.getElementById("matricula").value;
-    marca = document.getElementById("marca").value;
-    modelo = document.getElementById("modelo").value;
-    caballos = document.getElementById("caballos").value;
-    plazas = document.getElementById("plazas").selectedIndex;
-    radios = document.getElementsByName("estrellas");
-
-    for (var i = 0; i < radios.length; i++) {
-        if (radios[i].checked) {            //comprueba cada radio almacenado, si está marcado asigna su value a 'estrellas'
-            estrellas = radios[i].value;
-        }
-    }
-
-    var errores = "El formulario contiene los siguientes errores: <br>";
-
-
-    if (matricula === null || marca === null || modelo === null || fecha === null || caballos === null || plazas === null) {
-        alert("No se envió la información");
-        return false;
-    } else {
-        if (matricula === "" || !/^\d{4}\s[A-Z]{3}$/.test(matricula) || /^\s+$/.test(matricula)) {
-            alert("Matrícula no válida. El formato tiene que ser 0000 AAA");
-            return false;
-        } else if (marca === "" || /^\s+$/.test(marca) || /[0-9]/.test(marca) || marca.length < 2 || marca.length > 10) {
-            alert("Marca no válida. La marca sólo puede contener letras y debe tener menos de 10 caracteres.");
-            return false;
-        } else if (modelo === "" || /^\s+$/.test(modelo) || modelo.length < 2 || modelo.length > 10) {
-            alert("Modelo no válido. El modelo debe tener entre 2 y 10 caracteres.");
-            return false;
-
-        } else if (caballos === "" || /^\s+$/.test(caballos) || !/^\d{2,4}$/.test(caballos)) {
-            alert("Caballos no válidos.");
-            return false;
-        } else if (plazas === 0) {
-            alert("Seleccione un número de plazas.");
-            return false;
-        } else {
-
-            var E = document.getElementsByName("estrellas");
-            var R = -1;
-
-            for (var i = 0; i < E.length; i++) {
-                if (E[i].checked) {
-                    R = i;
-                }
-            }
-
-            if (R === -1) {
-                alert("Seleccione una valoración.");
-                return false;
-            } else {
-                var repetida = matriculaRepetida(matricula);
-                if (repetida == true) {
-                    alert("Este coche ya se encuentra registrado");
-                    return false;
-                } else {
-                    coche1 = new Coche();
-                    coche1.constructorCoche(matricula, marca, modelo, plazas, caballos, estrellas);
-                    garajeVehiculos.push(coche1);
-                    document.getElementById("cochesTotales").innerHTML = garajeVehiculos.length;
-                    alert("El vehículo ha sido guardado");
-                    return true;
-                }
-
-            }
-
-
-
-        }
-    }
-
-}
-
-/* validaciones:
- * 
- * - La matrícula tiene que estar compuesta por 4 números, un espacio y tres letras.
- * - La marca no puede contener números y tiene que tener entre 2 y 10 letras.
- * - El modelo tiene que tener entre 2 y 10 caracteres.
- * - La fecha tiene que tener el formato dd/mm/aaaa.
- * - Los caballos tienen que ser entre dos y cuatro números.
- * - Tiene que seleccionarse una opción de plazas.
- * - Tiene que seleccionarse una opción de estrellas.
- */
-
-
-
-
-function validarFormularioSER() {
-
-    with (document) {
-
-        var matricula = getElementById("matricula").value;
-        var zonaIndice = getElementById("zona").selectedIndex;
-        var zonaTexto = getElementById("zona")[zonaIndice].text;
-        var horas = getElementById("horas").value;
-
-
-        if (matricula === null || zona === null || horas === null) {
-
-            alert("Error: no se envió la información");
-            return false;
-
-        } else {
-
-            if (opener.devolverObjetoCoche(matricula) == false) {
-                alert("La matrícula " + matricula + " no se encuentra en el garaje");
-            }
-
-            else if (zonaIndice === 0) {
-                alert("En la zona blanca no pagamos en Madrid! Yihaaaa!");
-            }
-
-            else {
-
-                var cocheActual = opener.devolverObjetoCoche(matricula);
-
-                var fecha = cocheActual.getFecha();
-                var anho = fecha.getFullYear();
-
-                var costeZona = 3;
-                if (zonaIndice == 2) {
-                    costeZona = 4;
-                }
-
-                var costeAnho = 0.10;
-                if (anho < 2006) {
-                    anho = 0.25;
-                }
-
-                var resultado = horas * costeZona * costeAnho;
-
-                var mensaje = "Aparcar en la zona " + zonaTexto + " con un coche del año " + anho + " durante " + horas + " horas son " + resultado + "€";
-
-                document.getElementById("mensajes").innerHTML = mensaje;
-            }
-        }
-    }
-}
 
 /*----------------------------------------------------------------
 ------------------------CONSTRUCTOR COCHES------------------------
@@ -556,19 +216,4 @@ function Conductor() {
 
 }
 
-$(document).ready(function () {
-    $('#example').DataTable({
-        data: listarCoches(),
-        columns: [
-            { title: 'Id' },
-            { title: 'Matricula' },
-            { title: 'Marca' },
-            { title: 'Modelo' },
-            { title: 'Nombre.' },
-        ],
-        "lengthChange": false,
-        "language": {
-            "emptyTable": "No hay coches registrados en el garaje."
-        }
-    });
-});
+
