@@ -92,6 +92,38 @@ function listarCoches() {
 
 }
 
+function buscarCoche(matricula) {
+
+    for (var i = 0; i < garajeVehiculos.length; i++) {
+
+        var cocheActual = garajeVehiculos[i];
+        var matriculaActual = cocheActual.getMatricula();
+
+
+        if (matricula == matriculaActual) {
+            return cocheActual;
+        }
+    }
+
+}
+
+function cerrar() {
+    document.getElementById('formu').reset();
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('overlay').style.visibility = 'hidden';
+    document.getElementById('Matricula').style.display = "inline";
+    document.getElementById('SMatricula').style.display = "inline";
+}
+
+function abrir() {
+    if (document.getElementById('SMatricula').style.display === "inline") {
+        document.getElementById('SMatricula').style.display = "none";
+    }
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('overlay').style.visibility = 'visible';
+
+}
+
 
 function Reloj() {
 
@@ -215,5 +247,94 @@ function Conductor() {
     }
 
 }
+let loginForm = document.getElementById("formu");
 
+loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (document.getElementById('Matricula').style.display === "inline") {
+        var matricula = document.getElementById("Matricula");
+    }
+    else {
+        document.getElementById('Matricula').required = false;
+        var matricula = document.getElementById("SMatricula").textContent;
+    }
+    var marca = document.getElementById("Marca");
+    var modelo = document.getElementById("Modelo");
+    var nombre = document.getElementById("Nombre");
+    var telefono = document.getElementById("Telefono");
+    var codigo_Postal = document.getElementById("Codigo_Postal");
+    if (document.getElementById("Matricula").style.display === "inline") {
+
+        coche = new Coche();
+        conductor = new Conductor();
+        conductor.constructorConductor(nombre.value, telefono.value, codigo_Postal.value);
+        coche.constructorCoche(matricula.value, marca.value, modelo.value, conductor);
+        garajeVehiculos.push(coche);
+        document.getElementById("cochesTotales").innerHTML = garajeVehiculos.length;
+        alert("Coche nuevo añadido")
+        $('#example').DataTable().clear().rows.add(listarCoches()).draw();
+    }
+    else {
+        var confirmar = confirm("¿Seguro que quieres modificar el vehículo?");
+        if (confirmar === true) {
+            garajeVehiculos[buscarCoche(matricula)].setMarca(marca.value);
+            garajeVehiculos[buscarCoche(matricula)].setModelo(modelo.value);
+            garajeVehiculos[buscarCoche(matricula)].getConductor().setNombre(nombre.value);
+            garajeVehiculos[buscarCoche(matricula)].getConductor().setTelefono(telefono.value);
+            garajeVehiculos[buscarCoche(matricula)].getConductor().setCodigoPostal(codigo_Postal.value);
+            $('#example').DataTable().clear().rows.add(listarCoches()).draw();
+            alert("Vehículo modificado");
+
+        } else {
+            alert("El vehículo no ha sido modificado");
+        }
+    }
+    cerrar();
+});
+
+function Asignar(coche) {
+    document.getElementById("SMatricula").textContent = coche.getMatricula();
+    document.getElementById("Matricula").style.display = "none";
+    document.getElementById("Matricula").value = coche.getMatricula();
+    document.getElementById("Marca").value = coche.getMarca();
+    document.getElementById("Modelo").value = coche.getModelo();
+    document.getElementById("Nombre").value = coche.getConductor().getNombre();
+    document.getElementById("Telefono").value = coche.getConductor().getTelefono();
+    document.getElementById("Codigo_Postal").value = coche.getConductor().getCodigoPostal();
+
+}
+
+// funcion para destruir el vehiculo
+
+function destruirVehiculo(matricula) {
+
+    for (var i = 0; i < garajeVehiculos.length; i++) {
+
+        var cocheActual = garajeVehiculos[i];
+        var matriculaActual = cocheActual.getMatricula();
+
+
+        if (matricula == matriculaActual) {
+            garajeVehiculos.splice(i, 1);
+            document.getElementById("cochesTotales").innerHTML = garajeVehiculos.length;
+
+        }
+    }
+
+}
+
+function buscarCoche(matricula) {
+
+    for (var i = 0; i < garajeVehiculos.length; i++) {
+
+        var cocheActual = garajeVehiculos[i];
+        var matriculaActual = cocheActual.getMatricula();
+
+
+        if (matricula == matriculaActual) {
+            return i;
+        }
+    }
+
+}
 

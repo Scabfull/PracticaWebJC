@@ -77,14 +77,45 @@
   }
 }
 
-.formulario {
-  padding-bottom: 30px;
-  font-size: 1rem;
-  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-weight: 700;
-  margin-bottom: 0;
+#overlay {
+  opacity: 1;
+  background-color: #ccc;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
+  visibility: hidden;
+  display: none;
 }
 
+.formulario {
+  background-color: #ffc800;
+  border: 3px solid #000;
+  border-radius: 10px;
+  width: 80%;
+  height: 75%;
+  margin: 10%;
+  padding: 15px;
+  position: relative;
+  font-size: xx-large;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.botonF {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  
+}
+#SMatricula {
+  display: inline;
+}
+#Matricula {
+  display: inline;
+}
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -97,10 +128,10 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
+/*
 span {
   color: #ffc800;
-}
+}*/
 
 h6,
 .h6,
@@ -346,6 +377,13 @@ table {
   border-collapse: collapse;
 }
 
+.tabla {
+  padding-left: 20%;
+  padding-right: 20%;
+  display: block;
+
+}
+
 caption {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -415,12 +453,6 @@ select:disabled {
 
 
 
-button:not(:disabled),
-[type=button]:not(:disabled),
-[type=reset]:not(:disabled),
-[type=submit]:not(:disabled) {
-  cursor: pointer;
-}
 
 ::-moz-focus-inner {
   padding: 0;
@@ -4337,6 +4369,34 @@ fieldset:disabled .btn {
   }
 }
 
+.button-27 {
+  appearance: none;
+  background-color: #000000;
+  border: 2px solid #1A1A1A;
+  color: #ffc800;
+  border-radius: 15px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  will-change: transform;
+}
+
+
 .accordion-button {
   position: relative;
   display: flex;
@@ -4777,10 +4837,6 @@ fieldset:disabled .btn {
   border-radius: 0.25rem;
 }
 
-.list-group-numbered {
-  list-style-type: none;
-  counter-reset: section;
-}
 
 .list-group-numbered>li::before {
   content: counters(section, ".") ". ";
@@ -7607,10 +7663,6 @@ fieldset:disabled .btn {
 }
 
 
-.text-reset {
-  --bs-text-opacity: 1;
-  color: inherit !important;
-}
 
 .text-opacity-25 {
   --bs-text-opacity: 0.25;
@@ -11131,8 +11183,8 @@ p {
 
 .page-section {
   padding: 6rem 0;
- /* background-image: url("../assets/img/fondo.jpg"); */
- /* background-repeat: no-repeat; */
+  /* background-image: url("../assets/img/fondo.jpg"); */
+  /* background-repeat: no-repeat; */
   background-attachment: scroll;
   background-position: center center;
   /*background-size: cover; */

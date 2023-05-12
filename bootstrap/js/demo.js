@@ -1,6 +1,7 @@
 var coche1, coche2, coche3, coche4, coche5, coche6, coche7, coche8, coche9, coche10;
 function cargarContenidoDemostrativo(){
-    
+    document.getElementById('Matricula').style.display = "inline";
+    document.getElementById('SMatricula').style.display = "inline";
     
     coche1= new Coche();
     conductor1= new Conductor();

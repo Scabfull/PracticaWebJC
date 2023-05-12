@@ -12,11 +12,11 @@
     <script src="js/jquery-3.5.1.js"></script>
     <script src="js/jquery-3.6.4.min.js"></script>
     <script src="js/jquery.dataTables.min.js"></script>
-    <script src="js/scripts.js"></script>
+    
     <script src="js/demo.js"></script>
     <script src="js/tabla.js"></script>
-    
-    
+
+
 </head>
 
 
@@ -46,14 +46,61 @@
     </nav>
     <!-- Fondo mas botones-->
     <section class="page-section bg-light"></section>
+    
+    <div class="tabla">
+        <div>
+            <button id="cocheNuevo" class="button-27" onclick="abrir()">cocheNuevo</button>
+            <table id="example" class="display" width="100%"></table>
+        </div>
 
-    <table id="example" class="display" width="100%"></table>
+    </div>
+
+
+    <div id="overlay">
+        <div class="formulario">
+            <form id="formu" action="" name="formu">
+                <div class="Fcoche">
+                    Datos del coche:
+                    <p>
+                        <label for="Matricula">Matricula: <span id="SMatricula"></span></label>
+                        <input type="text" id="Matricula" name="Matricula" required>
+                    </p>
+                    <p>
+                        <label for="Marca">Marca:</label>
+                        <input type="text" id="Marca" name="Marca" required>
+                    </p>
+                    <p>
+                        <label for="Modelo">Modelo:</label>
+                        <input type="text" id="Modelo" name="Modelo" required>
+                    </p>
+                </div>
+                <div class="Fconductor">
+                    Datos del conductor:
+                    <p>
+                        <label for="Nombre">Nombre:</label>
+                        <input type="text" id="Nombre" name="Nombre" required>
+                    </p>
+                    <p>
+                        <label for="Telefono">Telefono:</label>
+                        <input type="text" id="Telefono" name="Telefono" required>
+                    </p>
+                    <p>
+                        <label for="Codigo_Postal">Codigo Postal:</label>
+                        <input type="text" id="Codigo_Postal" name="Codigo_Postal" required>
+                    </p>
+                </div>
+                    <div class="botonF"><button type="submit">Enviar</button></div>
+            </form>
+            <button id="cerrar" onclick="cerrar()">Cerrar</button>
+
+        </div>
+    </div>
 
 
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="js/scripts.js"></script>
 
 </body>
 
