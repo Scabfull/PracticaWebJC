@@ -81,7 +81,9 @@ $(document).ready(function () {
         if (confirmar === true) {
             matriculaBuena = table.cell($(this).parents('tr'), 1).data();
             destruirVehiculo(matriculaBuena);
-            table.row($(this).parents('tr')).remove().draw();
+            //table.row($(this).parents('tr')).remove().draw();
+            //$('#example').DataTable().clear().rows.add(listarCoches()).draw();
+            table.row($(this).parents('tr')).remove().clear().rows.add(listarCoches()).draw();
 
             alert("Vehículo retirado");
 
