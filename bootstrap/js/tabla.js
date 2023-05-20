@@ -67,7 +67,7 @@ $(document).ready(function () {
         },
         data: listarCoches(),
         columns: [
-            { title: 'Id' },
+            { title: 'ID' },
             { title: 'Matricula' },
             { title: 'Marca', class: 'editable text' },
             { title: 'Modelo', class: 'editable text' },
@@ -124,12 +124,7 @@ $(document).ready(function () {
         matriculaBuena = table.cell($(this).parents('tr'), 1).data();
         coche = garajeVehiculos[buscarCoche(matriculaBuena)];
         AsignarCoche(coche);
-        document.getElementById('overlay').style.display = 'block';
-        document.getElementById('overlay').style.visibility = 'visible';
-
-        document.getElementById('BConductor').style.display = "none";
-        document.getElementById('BConductor').style.visibility = "hidden";
-
+        mostrarFormulario();
 
     });
 
@@ -283,17 +278,12 @@ $(document).ready(function () {
                 idBueno = childTable.cell($(this).parents('tr'), 0).data();
                 AsignarCoche(cocheActual);
                 AsignarConductor(cocheActual, idBueno);
-                document.getElementById('overlay').style.display = 'block';
-                document.getElementById('overlay').style.visibility = 'visible';
-                document.getElementById('oConductor').style.display = "flex";
-                document.getElementById('oConductor').style.visibility = "visible";
+                mostrarFormulario();
+                mostrarConductor();
                 recogerId(idBueno);
-                document.getElementById('BConductor').style.display = "none";
-                document.getElementById('BConductor').style.visibility = "hidden";
-                document.getElementById('BCerrar').style.display = "none";
-                document.getElementById('BCerrar').style.visibility = "hidden";
-                document.getElementById('oCoche').style.display = "none";
-                document.getElementById('oCoche').style.visibility = "hidden";
+                ocultarAñadirConductor();
+                ocultarBotonCerrar();
+                ocultarCoche();
 
 
             });
