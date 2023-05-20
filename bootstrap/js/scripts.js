@@ -49,6 +49,8 @@ window.addEventListener('DOMContentLoaded', event => {
 ----------------------FUNCIONES AUXILIARES-----------------------
 ----------------------------------------------------------------*/
 var garajeVehiculos = new Array();
+var arrayConductores = new Array();
+var id;
 
 
 function matriculaRepetida(matricula) {                      // se le envía como parámetro la matrícula a analizar
@@ -68,6 +70,10 @@ function matriculaRepetida(matricula) {                      // se le envía com
     return false;
 }
 
+function recogerId(IdRecogido){
+    id=IdRecogido;
+}
+
 
 function listarCoches() {
     var listaCoches = new Array();
@@ -81,13 +87,35 @@ function listarCoches() {
         var matriculaActual = cocheActual.getMatricula();
         var marcaActual = cocheActual.getMarca();
         var modeloActual = cocheActual.getModelo();
-        var conductorActual = cocheActual.getConductor().getNombre();
+        var array = cocheActual.getConductor().length;
         id = i + 1;
 
-        coche = [id, matriculaActual, marcaActual, modeloActual, conductorActual];
+        coche = [id, matriculaActual, marcaActual, modeloActual, array];
         listaCoches.push(coche);
     }
     return listaCoches;
+
+
+}
+
+function listarConductores(coche) {
+    var listaConductores = new Array();
+    var conductor = new Array();
+    var id;
+
+    for (var i = 0; i < coche.getConductor().length; i++) {
+
+        var conductorActual = coche.getConductor()[i];
+
+        var nombreActual = conductorActual.getNombre();
+        var telefonoActual = conductorActual.getTelefono();
+        var codigoPostalActual = conductorActual.getCodigoPostal();
+        id = i + 1;
+
+        conductor = [id, nombreActual, telefonoActual, codigoPostalActual];
+        listaConductores.push(conductor);
+    }
+    return listaConductores;
 
 
 }
@@ -109,20 +137,79 @@ function buscarCoche(matricula) {
 
 function cerrar() {
     document.getElementById('formu').reset();
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('overlay').style.visibility = 'hidden';
+    document.getElementById('overlay').style.display = "none";
+    document.getElementById('overlay').style.visibility = "hidden";
     document.getElementById('Matricula').style.display = "inline";
     document.getElementById('SMatricula').style.display = "inline";
+    document.getElementById('BConductor').style.display = "flex";
+    document.getElementById('BConductor').style.visibility = "visible";
+    arrayConductores = [];
 }
 
 function abrir() {
+    arrayConductores = [];
     if (document.getElementById('SMatricula').style.display === "inline") {
         document.getElementById('SMatricula').style.display = "none";
+        arrayConductores = [];
     }
-    document.getElementById('overlay').style.display = 'block';
-    document.getElementById('overlay').style.visibility = 'visible';
+
+    document.getElementById('overlay').style.display = "inline";
+    document.getElementById('overlay').style.visibility = "visible";
 
 }
+
+function aOConductor() {
+    document.getElementById('oConductor').style.display = "flex";
+    document.getElementById('oConductor').style.visibility = "visible";
+    document.getElementById('BConductor').style.display = "none";
+    document.getElementById('BConductor').style.visibility = "hidden";
+    document.getElementById('BCerrar').style.display = "none";
+    document.getElementById('BCerrar').style.visibility = "hidden";
+}
+
+function cerrarConductor() {
+    document.getElementById('oConductor').style.display = "none";
+    document.getElementById('oConductor').style.visibility = "hidden";
+    document.getElementById('BConductor').style.display = "flex";
+    document.getElementById('BConductor').style.visibility = "visible";
+    document.getElementById('BCerrar').style.display = "flex";
+    document.getElementById('BCerrar').style.visibility = "visible";
+    document.getElementById('Nombre').value = "";
+    document.getElementById('Telefono').value = "";
+    document.getElementById('Codigo_Postal').value = "";
+    document.getElementById('BConductor').style.display = "flex";
+    document.getElementById('BConductor').style.visibility = "visible";
+    if (document.getElementById('oCoche').style.display === "none") {
+        cerrar();
+        document.getElementById('oCoche').style.display = "flex";
+        document.getElementById('oCoche').style.visibility = "visible";
+    }
+
+}
+
+function añadirConductor() {
+    var nombre = document.getElementById("Nombre");
+    var telefono = document.getElementById("Telefono");
+    var codigo_Postal = document.getElementById("Codigo_Postal");
+    if (document.getElementById('oCoche').style.display === "none") {
+        var coche = garajeVehiculos[buscarCoche(document.getElementById("Matricula").value)];
+        var conductor = coche.getConductor()[id-1];
+        conductor.setNombre(nombre.value);
+        conductor.setTelefono(telefono.value);
+        conductor.setCodigoPostal(codigo_Postal.value);
+        $('#example').DataTable().clear().rows.add(listarCoches()).draw();
+    }
+    else{
+        
+        conductor = new Conductor();
+        conductor.constructorConductor(nombre.value, telefono.value, codigo_Postal.value);
+        arrayConductores.push(conductor);
+    }
+    
+    cerrarConductor();
+
+}
+
 
 
 function Reloj() {
@@ -170,12 +257,13 @@ setInterval(fecha, 500);
 function Coche() {
 
     var _matricula, _marca, _modelo, _conductor;
+    var _array = new Array();
 
-    this.constructorCoche = function (matricula, marca, modelo, conductor = {}) {
+    this.constructorCoche = function (matricula, marca, modelo, conductores) {
         this.setMatricula(matricula);
         this.setMarca(marca);
         this.setModelo(modelo);
-        this.setConductor(conductor);
+        this.setConductor(conductores);
     }
 
     this.getMatricula = function () {
@@ -203,11 +291,11 @@ function Coche() {
     }
 
     this.getConductor = function () {
-        return this._conductor;
+        return this._array;
     }
 
     this.setConductor = function (valor) {
-        this._conductor = valor;
+        this._array = valor;
     }
 
 }
@@ -260,28 +348,20 @@ loginForm.addEventListener("submit", (e) => {
     }
     var marca = document.getElementById("Marca");
     var modelo = document.getElementById("Modelo");
-    var nombre = document.getElementById("Nombre");
-    var telefono = document.getElementById("Telefono");
-    var codigo_Postal = document.getElementById("Codigo_Postal");
     if (document.getElementById("Matricula").style.display === "inline") {
-
         coche = new Coche();
-        conductor = new Conductor();
-        conductor.constructorConductor(nombre.value, telefono.value, codigo_Postal.value);
-        coche.constructorCoche(matricula.value, marca.value, modelo.value, conductor);
+        coche.constructorCoche(matricula.value, marca.value, modelo.value, arrayConductores);
         garajeVehiculos.push(coche);
         document.getElementById("cochesTotales").innerHTML = garajeVehiculos.length;
         alert("Coche nuevo añadido")
         $('#example').DataTable().clear().rows.add(listarCoches()).draw();
+        arrayConductores = [];
     }
     else {
         var confirmar = confirm("¿Seguro que quieres modificar el vehículo?");
         if (confirmar === true) {
             garajeVehiculos[buscarCoche(matricula)].setMarca(marca.value);
             garajeVehiculos[buscarCoche(matricula)].setModelo(modelo.value);
-            garajeVehiculos[buscarCoche(matricula)].getConductor().setNombre(nombre.value);
-            garajeVehiculos[buscarCoche(matricula)].getConductor().setTelefono(telefono.value);
-            garajeVehiculos[buscarCoche(matricula)].getConductor().setCodigoPostal(codigo_Postal.value);
             $('#example').DataTable().clear().rows.add(listarCoches()).draw();
             alert("Vehículo modificado");
 
@@ -289,18 +369,23 @@ loginForm.addEventListener("submit", (e) => {
             alert("El vehículo no ha sido modificado");
         }
     }
+    document.getElementById('BConductor').style.display = "flex";
+    document.getElementById('BConductor').style.visibility = "visible";
     cerrar();
 });
 
-function Asignar(coche) {
+function AsignarCoche(coche) {
     document.getElementById("SMatricula").textContent = coche.getMatricula();
     document.getElementById("Matricula").style.display = "none";
     document.getElementById("Matricula").value = coche.getMatricula();
     document.getElementById("Marca").value = coche.getMarca();
     document.getElementById("Modelo").value = coche.getModelo();
-    document.getElementById("Nombre").value = coche.getConductor().getNombre();
-    document.getElementById("Telefono").value = coche.getConductor().getTelefono();
-    document.getElementById("Codigo_Postal").value = coche.getConductor().getCodigoPostal();
+}
+
+function AsignarConductor(coche, idConductor) {
+    document.getElementById("Nombre").value = coche.getConductor()[idConductor-1].getNombre();
+    document.getElementById("Telefono").value = coche.getConductor()[idConductor-1].getTelefono();
+    document.getElementById("Codigo_Postal").value = coche.getConductor()[idConductor-1].getCodigoPostal();
 
 }
 
@@ -323,6 +408,11 @@ function destruirVehiculo(matricula) {
 
 }
 
+function eliminarConductor(id, coche) {
+    var i = id - 1;
+    conductoresBuenos = coche.getConductor().splice(i, 1);
+}
+
 function buscarCoche(matricula) {
 
     for (var i = 0; i < garajeVehiculos.length; i++) {
@@ -337,4 +427,3 @@ function buscarCoche(matricula) {
     }
 
 }
-

@@ -12,7 +12,7 @@
     <script src="js/jquery-3.5.1.js"></script>
     <script src="js/jquery-3.6.4.min.js"></script>
     <script src="js/jquery.dataTables.min.js"></script>
-    
+
     <script src="js/demo.js"></script>
     <script src="js/tabla.js"></script>
 
@@ -45,8 +45,7 @@
         </div>
     </nav>
     <!-- Fondo mas botones-->
-    <section class="page-section bg-light"></section>
-    
+
     <div class="tabla">
         <div>
             <button id="cocheNuevo" class="button-27" onclick="abrir()">Añadir vehículo</button>
@@ -58,8 +57,8 @@
 
     <div id="overlay">
         <div class="formulario">
-            <form id="formu" action="" name="formu">
-                <div class="Fcoche">
+            <div id="oCoche">
+                <form id="formu" action="" name="formu">
                     Datos del coche:
                     <p>
                         <label for="Matricula">Matricula: <span id="SMatricula"></span></label>
@@ -73,25 +72,41 @@
                         <label for="Modelo">Modelo:</label>
                         <input type="text" id="Modelo" name="Modelo" required>
                     </p>
+
+                    <div id="BSubmit" class="botonF"><button type="submit">Enviar</button></div>
+                </form>
+                <div id="BConductor" class="botonF">
+                    <button id="NuevoConductor" onclick="aOConductor()">Añadir conductor</button>
                 </div>
-                <div class="Fconductor">
+            </div>
+            <div id="oConductor">
+                <div class="conductor">
                     Datos del conductor:
                     <p>
                         <label for="Nombre">Nombre:</label>
-                        <input type="text" id="Nombre" name="Nombre" required>
+                        <input type="text" id="Nombre" name="Nombre">
                     </p>
                     <p>
                         <label for="Telefono">Telefono:</label>
-                        <input type="text" id="Telefono" name="Telefono" required>
+                        <input type="text" id="Telefono" name="Telefono">
                     </p>
                     <p>
                         <label for="Codigo_Postal">Codigo Postal:</label>
-                        <input type="text" id="Codigo_Postal" name="Codigo_Postal" required>
+                        <input type="text" id="Codigo_Postal" name="Codigo_Postal">
                     </p>
                 </div>
-                    <div class="botonF"><button type="submit">Enviar</button></div>
-            </form>
-            <button id="cerrar" onclick="cerrar()">Cerrar</button>
+                <div class="botones">
+                    <div id="BAñadirC" class="botonF">
+                        <button id="AConductor" onclick="añadirConductor()">Aceptar</button>
+                    </div>
+                    <div id="BCerrarC" class="botonF">
+                        <button id="CConductor" onclick="cerrarConductor()">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+            <div id="BCerrar" class="botonF">
+                <button id="cerrar" onclick="cerrar()">Cerrar</button>
+            </div>
 
         </div>
     </div>
