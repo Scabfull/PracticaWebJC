@@ -44,37 +44,15 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
-
-/*----------------------------------------------------------------
-----------------------FUNCIONES AUXILIARES-----------------------
-----------------------------------------------------------------*/
 var garajeVehiculos = new Array();
 var arrayConductores = new Array();
 var id;
-
-
-function matriculaRepetida(matricula) {                      // se le envía como parámetro la matrícula a analizar
-
-    for (var i = 0; i < garajeVehiculos.length; i++) {      // entra en un bucle con tantas vueltas como posiciones tenga el garaje
-
-        var cocheActual = garajeVehiculos[i];               // asigna a "cocheActual" la instancia de coche presente en la posición i del Array (garajeVehiculos[i])
-
-        var matriculaActual = cocheActual.getMatricula();   // asigna a "matriculaActual" la matrícula de esa instancia de coche aplicándole al "cocheActual" el método getMatricula()
-
-        if (matricula == matriculaActual) {                  // evalúa si la matrícula que se le ha pasado como parámetro es igual a la de esa instancia.
-
-            return true;                                    // si son iguales, devuelve true. en caso contrario, devuelve false.
-        }
-
-    }
-    return false;
-}
 
 function recogerId(IdRecogido) {
     id = IdRecogido;
 }
 
-
+//Funcion para listar todos los coches y devolverlos en la estructura deseada
 function listarCoches() {
     var listaCoches = new Array();
     var coche = new Array();
@@ -94,10 +72,9 @@ function listarCoches() {
         listaCoches.push(coche);
     }
     return listaCoches;
-
-
 }
 
+//Funcion para listar todos los conductores y devolverlos en la estructura deseada
 function listarConductores(coche) {
     var listaConductores = new Array();
     var conductor = new Array();
@@ -116,25 +93,9 @@ function listarConductores(coche) {
         listaConductores.push(conductor);
     }
     return listaConductores;
-
-
 }
 
-function buscarCoche(matricula) {
-
-    for (var i = 0; i < garajeVehiculos.length; i++) {
-
-        var cocheActual = garajeVehiculos[i];
-        var matriculaActual = cocheActual.getMatricula();
-
-
-        if (matricula == matriculaActual) {
-            return cocheActual;
-        }
-    }
-
-}
-
+//Funcion para cerrar el overlay
 function cerrar() {
     document.getElementById('formu').reset();
     ocultarFormulario();
@@ -144,6 +105,7 @@ function cerrar() {
     arrayConductores = [];
 }
 
+//Funcion para abrir el overlay
 function abrir() {
     arrayConductores = [];
     if (document.getElementById('SMatricula').style.display === "inline") {
@@ -153,12 +115,14 @@ function abrir() {
     mostrarFormulario();
 }
 
+//Funcion para mostrar el formulario para añadir conductor
 function aOConductor() {
     mostrarConductor();
     ocultarAñadirConductor();
     ocultarBotonCerrar();
 }
 
+//Funcion para cerrar el formulario para añadir conductor
 function cerrarConductor() {
     ocultarConductor();
     mostrarAñadirConductor();
@@ -171,10 +135,12 @@ function cerrarConductor() {
 
 }
 
+//Boton para añadir los conductores
 function añadirConductor() {
     var nombre = document.getElementById("Nombre");
     var telefono = document.getElementById("Telefono");
     var codigo_Postal = document.getElementById("Codigo_Postal");
+    //En el caso de que sea para añadir conductores a un coche ya creado
     if (document.getElementById('oCoche').style.display === "none") {
         var coche = garajeVehiculos[buscarCoche(document.getElementById("Matricula").value)];
         var conductor = coche.getConductor()[id - 1];
@@ -183,17 +149,18 @@ function añadirConductor() {
         conductor.setCodigoPostal(codigo_Postal.value);
         $('#example').DataTable().clear().rows.add(listarCoches()).draw();
     }
+    //En el caso que sea para añadir conductores mientras creas un coche
     else {
-
         conductor = new Conductor();
         conductor.constructorConductor(nombre.value, telefono.value, codigo_Postal.value);
         arrayConductores.push(conductor);
     }
-
     cerrarConductor();
-
 }
 
+//
+//Funciones para mostrar y ocultar elementos
+//
 function mostrarFormulario() {
     document.getElementById('overlay').style.display = "inline";
     document.getElementById('overlay').style.visibility = "visible";
@@ -256,7 +223,7 @@ function vaciarFormConductor() {
     document.getElementById('Codigo_Postal').value = "";
 }
 
-
+//Reloj y fecha
 function Reloj() {
 
     var fechaHora = new Date();
@@ -345,6 +312,9 @@ function Coche() {
 
 }
 
+/*----------------------------------------------------------------
+------------------------CONSTRUCTOR CONDUCTORES-------------------
+----------------------------------------------------------------*/
 
 function Conductor() {
 
@@ -380,6 +350,10 @@ function Conductor() {
     }
 
 }
+
+//
+//Funcion submit del formulario
+//
 let loginForm = document.getElementById("formu");
 
 loginForm.addEventListener("submit", (e) => {
@@ -423,6 +397,9 @@ loginForm.addEventListener("submit", (e) => {
     cerrar();
 });
 
+//
+//Funcion para cargar datos en los formularios
+//
 function AsignarCoche(coche) {
     document.getElementById("SMatricula").textContent = coche.getMatricula();
     document.getElementById("Matricula").style.display = "none";
@@ -438,8 +415,7 @@ function AsignarConductor(coche, idConductor) {
 
 }
 
-// funcion para destruir el vehiculo
-
+//Funcion para destruir el vehiculo
 function destruirVehiculo(matricula) {
 
     for (var i = 0; i < garajeVehiculos.length; i++) {
@@ -457,11 +433,13 @@ function destruirVehiculo(matricula) {
 
 }
 
+//Funcion para destruir el conductor
 function eliminarConductor(id, coche) {
     var i = id - 1;
     conductoresBuenos = coche.getConductor().splice(i, 1);
 }
 
+//Funcion para buscar un coche a traves de la matricula
 function buscarCoche(matricula) {
 
     for (var i = 0; i < garajeVehiculos.length; i++) {
