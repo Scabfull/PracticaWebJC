@@ -11,8 +11,6 @@
     <script src="/js/demo.js"></script>
     <script src="/js/ajax.js"></script>
 
-
-
 </head>
 
 <body id="page-top">
@@ -44,7 +42,8 @@
             <div>
   
                <h1>Lista de vehículos</h1>
-                {{#posts}}
+               <div id="coches">
+                {{#coches}}
                 <hr class="dashed">
                 <br>
                 <b><u>Matrícula:</u></b> {{Matricula}}</a> &nbsp;&nbsp;&nbsp;                        
@@ -52,18 +51,20 @@
                 <b><u>Más info:</u></b> <a title="Más info" href="post/{{id}}"><img src="/assets/mas.png" alt="Mas info" height="20" width="20"/></a>
                 <br>
 
-                {{/posts}}
+                {{/coches}}
 
-              
+              </div>
 
-                {{^posts}}
+                {{^coches}}
                 <h2>No hay vehículos en el garaje.</h2>
-                {{/posts}}
+                {{/coches}}
+                <br>
+
             </div>
         </div>
     </div>
 
-
+        <input type="button" onclick='cargarMas()' value="Cargar más" class="button-27">
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

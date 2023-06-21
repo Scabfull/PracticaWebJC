@@ -2,15 +2,25 @@ import express from 'express';
 import * as scripts from "../public/js/demo.js";
 import * as boardService from './CocheService.js';
 import conductores from './conductores.js';
+
 var arrayConductores = new Array();
 const router = express.Router();
 
 router.get('/', (req, res) => {
 
+    const coches = boardService.getCoches(0,5);
     res.render('index', {
-        posts: boardService.getPosts()
+        coches: coches
     });
 });
+
+
+// router.get('/', (req, res) => {
+
+//     res.render('index', {
+//         posts: boardService.getPosts()
+//     });
+// });
 
 router.post('/post/new', (req, res) => {
 
@@ -74,6 +84,18 @@ router.use('/post/:id/conductores', function (req, res, next) {
 
 router.get('/cancelarConductor', (req, res) => {
     res.render('form_coche');
+});
+
+router.get('/coches', (req, res) => {
+
+    const from = parseInt(req.query.from);
+    const to = parseInt(req.query.to);
+
+    const coches = boardService.getCoches(from,to);
+
+    res.render('coches', {
+        coches: coches
+    });
 });
 
 export default router;

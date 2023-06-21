@@ -19,5 +19,3 @@ export function confirmar() {
     var confirmar = confirm("¿Seguro que quieres modificar el vehículo?");
     return confirmar;
 }
-
-
