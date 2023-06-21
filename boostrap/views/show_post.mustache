@@ -10,6 +10,9 @@
 
     <script src="/js/demo.js"></script>
     <script src="/js/scripts.js"></script>
+    <script src="/js/confirm.js"></script>
+    
+
 
 
 
@@ -35,7 +38,6 @@
             </div>
         </div>
     </nav>
-
     <div class="tabla">
         <div>
 			<p><b>Matricula:</b> {{post.Matricula}}</p>
@@ -46,16 +48,14 @@
 
                 {{#conductores}}
                 <div class="conductores">
-                    <p><b>Nombre:</b> {{Nombre}} <br><b> Teléfono:</b> {{Telefono}} <br> <b>Código Postal:</b>
-                        {{Codigo_Postal}}
+                    <p><b>Nombre:</b> {{Nombre}} <br>
+                    <b> Teléfono:</b> {{Telefono}} <br> 
+                    <b>Código Postal:</b> {{Codigo_Postal}} 
                     <p>
+
                     <div class="relative">
-                        <input type="button"
-                            onclick="window.location.href='/post/{{post.id}}/conductores/{{index}}/edit';"
-                            class="button-30" value="Editar conductor">
-                        <input type="button"
-                            onclick="window.location.href='/post/{{post.id}}/conductores/{{index}}/delete';"
-                            class="button-30" value="Eliminar conductor">
+                        <input type="button" onclick="window.location.href='/post/{{post.id}}/conductores/{{index}}/edit';" class="button-30" value="Editar conductor">
+                         <input type="button" onclick="confirmarConductor({{post.id}}, {{index}})" class="button-30" value="Eliminar conductor">
                     </div>
                     <br>
                 </div>
@@ -76,9 +76,7 @@
                     class="navitem" value="Añadir conductor">
                 <input type="button" onclick="window.location.href='/post/{{post.id}}/edit';" class="navitem"
                     value="Editar vehículo">
-                <input type="button" onclick="window.location.href='/post/{{post.id}}/delete';" class="navitem"
-                    value="Eliminar vehículo">
-
+                <input type="button" onclick="confirmar({{post.id}})" class="navitem" value="Eliminar vehículo">
             </div>
             <br>
             <br>
