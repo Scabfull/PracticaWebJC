@@ -80,12 +80,3 @@ function fecha() {
 }
 
 setInterval(fecha, 500);
-
-
-function cochestotales(){
-
-document.getElementById("cochesTotales").innerHTML = 2;
-
- }
-
-cochestotales();

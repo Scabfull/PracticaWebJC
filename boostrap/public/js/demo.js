@@ -14,8 +14,3 @@ export function crearArray() {
     var array = new Array();
     return array;
 }
-
-export function confirmar() {
-    var confirmar = confirm("¿Seguro que quieres modificar el vehículo?");
-    return confirmar;
-}

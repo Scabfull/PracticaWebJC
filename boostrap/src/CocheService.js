@@ -24,8 +24,8 @@ addPost({ Matricula: "0254FFK", Marca: "Ford", Modelo: "Mustang", array: [
 { Nombre: "Gonzalo", Telefono: "625987456", Codigo_Postal: "26589", index: "0" },
 ]});
 addPost({ Matricula: "6258HGD", Marca: "Ford", Modelo: "Focus", array: [
-    { Nombre: "Karen", Telefono: "625478963", Codigo_Postal: "21547", index: "0" },
-    ]});
+{ Nombre: "Karen", Telefono: "625478963", Codigo_Postal: "21547", index: "0" },
+]});
 
 export function addPost(post) {
     let id = nextId++;
@@ -78,7 +78,7 @@ export function addConductor(id, Nombre, Telefono, Codigo_Postal){
 }
 
 export function numeroCoches(){
-    return getPosts.length;
+    return posts.size;
 }
 
 export function getCoches(from, to) {

@@ -98,4 +98,14 @@ router.get('/coches', (req, res) => {
     });
 });
 
+router.get('/numCoches', (req, res) => {
+
+    let numcoches = boardService.numeroCoches() ;
+
+
+    res.render('numCoches', {
+        numcoches
+    });
+});
+
 export default router;
