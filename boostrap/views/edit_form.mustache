@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Garaje JAVICAR</title>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+
+    <script src="/js/demo.js"></script>
+    <script src="/js/scripts.js"></script>
+
+
+
+</head>
+
+<body id="page-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="/">Garaje JAVICAR</a>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item">
+                        <p class="nav-link" id="horas"></p>
+                    </li>
+                    <li class="nav-item">
+                        <p class="nav-link" id="fecha"></p>
+                    </li>
+                    <li class="nav-item">
+                        <p class="nav-link">Coches en garaje: <span id="cochesTotales">0</span> coches</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="tabla">
+        <form action="/post/{{post.id}}/save" method="post">
+            <p>Matricula: </p>
+            <input type='text' name='Matricula' id="Matricula" value="{{{post.Matricula}}}" required />
+            <p>Marca:</p>
+            <input type='text' name='Marca' id="Marca" value="{{{post.Marca}}}" required />
+            <p>Modelo:</p>
+            <input type='text' name='Modelo' id="Modelo" value="{{{post.Modelo}}}" required />
+            
+            <br>
+            <br>
+            <input type='submit' class="button-27" value='Guardar' />
+        </form>
+        <br>
+       <input type="button" onclick="window.location.href='/';" class="button-27" value="Atrás">
+
+    </div>
+
+
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>

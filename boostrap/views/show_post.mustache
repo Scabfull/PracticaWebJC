@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Garaje JAVICAR</title>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+
+    <script src="/js/demo.js"></script>
+    <script src="/js/scripts.js"></script>
+
+
+
+</head>
+
+<body id="page-top">
+    <!-- Nombre Cantidad de coches y hora-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="/">Garaje JAVICAR</a>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                    <li class="nav-item">
+                        <p class="nav-link" id="horas"></p>
+                    </li>
+                    <li class="nav-item">
+                        <p class="nav-link" id="fecha"></p>
+                    </li>
+                    <li class="nav-item">
+                        <p class="nav-link">Coches en garaje: <span id="cochesTotales">0</span> coches</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tabla">
+        <div>
+			<p><b>Matricula:</b> {{post.Matricula}}</p>
+			<p><b>Marca:</b> {{post.Marca}}</p>
+			<p><b>Modelo:</b> {{post.Modelo}}</p>
+            <div>
+                <h1>Lista de Conductores</h1>
+
+                {{#conductores}}
+                <div class="conductores">
+                    <p><b>Nombre:</b> {{Nombre}} <br><b> Teléfono:</b> {{Telefono}} <br> <b>Código Postal:</b>
+                        {{Codigo_Postal}}
+                    <p>
+                    <div class="relative">
+                        <input type="button"
+                            onclick="window.location.href='/post/{{post.id}}/conductores/{{index}}/edit';"
+                            class="button-30" value="Editar conductor">
+                        <input type="button"
+                            onclick="window.location.href='/post/{{post.id}}/conductores/{{index}}/delete';"
+                            class="button-30" value="Eliminar conductor">
+                    </div>
+                    <br>
+                </div>
+                {{/conductores}}
+
+                {{^conductores}}
+                <h2 style="text-align:center;">Este coche no tiene conductores.</h2>
+
+                <br>
+                {{/conductores}}
+
+
+            </div>
+
+            <div class="relative">
+
+                <input type="button" onclick="window.location.href='/post/{{post.id}}/conductores/form';"
+                    class="navitem" value="Añadir conductor">
+                <input type="button" onclick="window.location.href='/post/{{post.id}}/edit';" class="navitem"
+                    value="Editar vehículo">
+                <input type="button" onclick="window.location.href='/post/{{post.id}}/delete';" class="navitem"
+                    value="Eliminar vehículo">
+
+            </div>
+            <br>
+            <br>
+            <br>
+            <input type="button" onclick="window.location.href='/';" class="button-27" value="Atrás">
+        </div>
+
+    </div>
+    </div>
+
+
+
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+</body>
+
+</html>
